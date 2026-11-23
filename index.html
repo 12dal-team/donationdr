@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>기부DR | 기업 성과 대시보드</title>
+<meta name="description" content="기부DR 기업용 DR 감축·회피배출·기부·고효율 냉장고 교체 성과 대시보드">
+<style>
+:root{color-scheme:dark;--bg:#0a1221;--sidebar:#101d32;--panel:#15223a;--panel-2:#1b2b44;--panel-3:#22344d;--border:#2b3b53;--text:#eff5ff;--muted:#91a5c1;--subtle:#6f85a4;--teal:#35d6ac;--blue:#73adff;--yellow:#edb963;--violet:#ae9afa;--red:#e988a0}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);font-family:'Pretendard','Noto Sans KR','Malgun Gothic',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:var(--text);font-size:13px;font-weight:450}button,select{font:inherit}button{cursor:pointer}svg{display:block}main,header,aside,section,div{min-width:0}
+.app{display:flex;min-height:100vh}
+aside{width:246px;flex:none;position:fixed;inset:0 auto 0 0;background:linear-gradient(180deg,#111f37 0%,#0d192c 100%);border-right:1px solid #24344c;display:flex;flex-direction:column;padding:23px 14px 20px;z-index:10}
+.brand{display:flex;align-items:center;gap:11px;padding:3px 7px 23px;border-bottom:1px solid #26354b}.brand-logo{width:56px;height:48px;border-radius:10px;background:linear-gradient(145deg,#173b42,#172a3e);border:1px solid #2e625e;display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden}.brand-logo svg{width:88%;height:auto}.brand-name{font-size:24px;font-weight:900;letter-spacing:-1px;line-height:1}.brand-name small{display:block;font-size:10px;letter-spacing:.1px;color:#8ca7c2;font-weight:600;margin-top:7px}.nav-title{font-size:10px;font-weight:800;letter-spacing:1.6px;color:#6680a4;padding:23px 12px 11px}.nav{display:flex;flex-direction:column;gap:5px}.nav-button{position:relative;display:flex;align-items:center;gap:11px;width:100%;padding:12px 11px;background:none;border:1px solid transparent;border-radius:10px;color:#a6b7cd;text-align:left;font-size:12.5px;font-weight:700}.nav-button:hover{color:#f2faff;background:#1a2d45}.nav-button.active{color:#f2faff;background:#1b3945;border-color:#2c6865}.nav-button.active:before{content:'';width:3px;position:absolute;left:0;height:25px;background:var(--teal);border-radius:4px}.nav-icon{font-size:17px;width:22px;text-align:center;line-height:1.1}.side-bottom{margin-top:auto;padding:15px 10px 0;color:#6d87a6;font-size:11px}
+.workspace{margin-left:246px;width:calc(100% - 246px)}.topbar{display:flex;justify-content:space-between;align-items:center;gap:13px;min-height:69px;padding:12px 27px;background:#0e192d;border-bottom:1px solid #293a51}.breadcrumb{display:flex;align-items:center;gap:10px;font-size:12px;color:#8ca2be}.breadcrumb strong{color:#f3f7ff;font-size:12.5px}.top-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.company{font-size:11.5px;color:#a6bad2}.select{color:#dce9f8;background:#1c2a42;padding:10px 13px;border:1px solid #3a4c63;border-radius:8px;outline:none;font-size:11.5px}.select:focus-visible,.btn:focus-visible,.nav-button:focus-visible{outline:2px solid var(--teal);outline-offset:2px}.btn{border:1px solid #38506a;background:#1c2e48;color:#dbe8f7;padding:9px 12px;border-radius:8px;font-size:11.5px;font-weight:800;white-space:nowrap}.btn:hover{background:#29425f}.btn.teal{background:#127f71;border-color:#1f9b86;color:white}.main{padding:23px 28px 28px;max-width:1660px;margin:auto}.view{display:none}.view.active{display:block}.heading{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:0 0 22px}.heading h1{font-weight:850;font-size:25px;line-height:1.4;letter-spacing:-.7px;margin:0}.heading .label{font-weight:700;color:#87a0bc;font-size:11.5px}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px;margin-bottom:14px}.kpi{padding:19px 19px 15px;background:linear-gradient(135deg,#1b2d48 0%,#152139 100%);border:1px solid #2b3f59;border-radius:12px;min-height:132px;box-shadow:0 5px 18px rgba(0,0,0,.07)}.kpi-top{display:flex;justify-content:space-between;align-items:center;gap:8px;color:#afc1d7;font-size:11.7px;font-weight:750}.kpi-icon{display:grid;place-items:center;width:31px;height:31px;border-radius:9px;font-size:17px;background:#1b3b42;color:var(--teal)}.kpi-icon.blue{background:#263d5a;color:var(--blue)}.kpi-icon.yellow{background:#443722;color:var(--yellow)}.kpi-icon.violet{background:#332e55;color:var(--violet)}.kpi-number{display:flex;align-items:baseline;gap:7px;margin-top:15px;font-size:26px;font-weight:850;letter-spacing:-.7px;white-space:nowrap}.kpi-number small{font-size:12px;color:#b6c7db;letter-spacing:0;font-weight:650}.kpi-detail{color:#8198b6;font-size:10.5px;margin-top:8px;white-space:normal}
+.grid{display:grid;grid-template-columns:minmax(0,1.57fr) minmax(320px,1fr);gap:14px;margin-bottom:14px}.grid.equal{grid-template-columns:repeat(2,minmax(0,1fr))}.card{border:1px solid var(--border);background:var(--panel);border-radius:12px;overflow:hidden;box-shadow:0 12px 28px rgba(0,0,0,.09)}.card-inner{padding:19px 20px 18px}.card-header{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:15px}.card-header h2{font-size:14.7px;font-weight:850;letter-spacing:-.15px;margin:0}.card-header .subtitle{font-size:10.4px;color:#8299b6;margin-top:7px}.mini-chip{font-size:9.6px;border-radius:6px;color:#a8c5e3;background:#243752;border:1px solid #34526d;padding:5px 8px;white-space:nowrap}.mini-chip.green{color:#8af0d4;background:#183d39;border-color:#2b615a}
+.chart{height:211px;width:100%;position:relative}.chart.big{height:295px}.chart svg{height:100%;width:100%}.chart .tip{display:none;position:absolute;z-index:2;border:1px solid #58708a;background:#263750;box-shadow:0 8px 23px #0007;border-radius:7px;padding:9px 11px;pointer-events:none;white-space:nowrap;font-size:10.5px;line-height:1.7}.chart-legend{display:flex;justify-content:center;align-items:center;gap:20px;flex-wrap:wrap;margin-top:11px;color:#9aafc9;font-size:10px}.legend-dot{width:9px;height:9px;background:var(--teal);display:inline-block;margin-right:6px;border-radius:2px}.legend-line{height:3px;width:18px;background:var(--yellow);display:inline-block;vertical-align:middle;margin-right:6px;border-radius:5px}
+.flow{display:flex;flex-direction:column}.flow-row{display:flex;align-items:center;gap:12px;min-height:48px}.flow-symbol{width:36px;height:36px;display:grid;place-items:center;flex-shrink:0;border-radius:9px;color:var(--teal);background:#244451;font-size:16px}.flow-symbol.blue{color:var(--blue);background:#263c58}.flow-symbol.yellow{color:var(--yellow);background:#3d352b}.flow-label{font-size:10.5px;color:#8fa8c6;margin-bottom:4px}.flow-num{font-size:16px;font-weight:800}.flow-num small{font-size:10px;font-weight:650;color:#a8bad0}.flow-step{border-left:1px dashed #4e6b81;height:15px;margin-left:17px}.progress{height:8px;border-radius:50px;background:#2a3d52;overflow:hidden;margin:13px 0 9px}.progress>div{height:100%;border-radius:50px;background:linear-gradient(90deg,#149e83,#3bdab3)}.between{display:flex;justify-content:space-between;gap:6px;color:#8da3bf;font-size:10px}.between strong{color:#dce9f8;font-weight:800}
+.compare{display:grid;grid-template-columns:69px 1fr 93px;align-items:center;gap:10px;margin:12px 0;color:#acbfd5;font-size:11px}.bar-track{height:18px;background:#283950;border-radius:4px;overflow:hidden}.bar-fill{background:#9babbe;border-radius:4px;height:100%}.bar-fill.good{background:var(--teal)}.compare .val{text-align:right;color:#ecf6ff;font-weight:800}.impact{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:17px;align-items:center}.impact-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}.stat{background:#1b2b44;border:1px solid #30435d;border-radius:9px;padding:12px 9px}.stat span{color:#8da2bf;font-size:9.7px;display:block;min-height:25px}.stat strong{font-size:16px;letter-spacing:-.4px}.stat small{font-size:9.2px;color:#a4b6ca;margin-left:3px}
+.tbl-scroll{overflow-x:auto}table{border-collapse:collapse;width:100%;min-width:570px;font-size:10.8px}th{text-align:left;background:#1e2d46;color:#94abc6;padding:10px 11px;white-space:nowrap;font-weight:800;border-bottom:1px solid #3a4b60}td{color:#d3e1f2;border-bottom:1px solid #2c3b53;padding:10px 11px;white-space:nowrap}tbody tr:hover{background:#1c2d45}tbody tr:last-child td{border-bottom:none}.num{text-align:right}.green-num{color:#52deb9;font-weight:750}.status{display:inline-flex;align-items:center;gap:5px;color:#67dfb7;font-size:10px}.status:before{content:'';width:6px;height:6px;border-radius:50%;background:#35d6ac}
+.footer{display:flex;justify-content:space-between;gap:16px;padding:6px 28px 24px;font-size:10px;color:#6684a4}.small-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.small-kpi{padding:12px;background:#1d2c45;border:1px solid #31435e;border-radius:9px}.small-kpi label{display:block;color:#8ba4c1;font-size:10px;margin-bottom:8px}.small-kpi strong{font-size:16px}.small-kpi small{font-size:9.8px;color:#9ab0c8;margin-left:4px}.stages{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.stage{border:1px solid #30445e;border-radius:10px;background:#1a2b43;padding:15px}.stage small{font-size:10px;color:#7d99ba}.stage h3{font-size:11.5px;margin:10px 0 9px}.stage strong{font-size:18px}.stage p{margin:8px 0 0;font-size:10.2px;color:#8da7c5;line-height:1.55}.metric-row{display:flex;gap:22px;flex-wrap:wrap;margin-top:15px;padding-top:15px;border-top:1px solid #30415b}.metric-row span{font-size:10.5px;color:#8fa8c3}.metric-row strong{font-size:13px;color:#eff7ff;margin-left:5px}.equation{font-size:11px;color:#a9c1d9;padding:14px;background:#1b2e46;border:1px solid #30475f;border-radius:9px;line-height:1.8}.equation b{color:#d5edf8}.report-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}.report{padding:18px;background:linear-gradient(145deg,#1c2e48,#15243b);border:1px solid #30465f;border-radius:12px}.report-icon{display:grid;place-items:center;height:37px;width:37px;border-radius:9px;background:#254357;color:#6be2c4;font-size:21px;margin-bottom:13px}.report h3{font-size:15px;margin:0 0 11px}.report .report-tags{font-size:11px;color:#94abc7;line-height:1.9;min-height:70px}.report button{width:100%;margin-top:10px}.formula-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.formula{padding:15px;border:1px solid #31465f;border-radius:9px;background:#1c2c43}.formula label{font-size:11px;color:#91abc8;font-weight:750}.formula strong{display:block;margin:10px 0;font-size:13px}.formula span{color:#809dbb;font-size:10px;line-height:1.65;display:block}.note{color:#7493b3;font-size:10px;margin-top:13px}.status.pending{color:#edb963}.status.pending:before{background:#edb963}#recent-events table{min-width:0}.demo-tag{display:inline-block;font-size:9px;color:#edb963;border:1px solid #5a4a2c;border-radius:4px;padding:0 4px;margin-left:5px;line-height:15px}.print-sheet{display:none}
+/* MEF carbon analysis: compact side-by-side performance and chart layout */
+.carbon-layout{display:grid;grid-template-columns:minmax(280px,.88fr) minmax(0,1.82fr);gap:14px;align-items:stretch;margin-bottom:14px}
+.carbon-metrics{display:grid;grid-template-rows:repeat(2,minmax(0,1fr));gap:14px;min-width:0}
+.carbon-metrics .kpi{display:flex;flex-direction:column;justify-content:space-between;min-height:0;padding:22px 22px 20px;margin:0}
+.carbon-metrics .kpi:first-child{background:linear-gradient(145deg,#173b42 0%,#172a3e 85%);border-color:#2e625e}
+.carbon-metrics .kpi-number{font-size:34px;margin-top:0;line-height:1.15}
+.carbon-metrics .kpi-number small{font-size:12px}
+.carbon-metrics .kpi-detail{margin-top:0;font-size:10.8px}
+.carbon-chart-card .card-inner{height:100%;display:flex;flex-direction:column;padding:19px 21px 17px}
+.carbon-chart-card .card-header{margin-bottom:7px}
+.carbon-chart-card .chart.big{height:255px;flex:none}
+.carbon-chart-card .chart-legend{margin-top:8px}
+.carbon-insights{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0;margin-top:15px;padding-top:13px;border-top:1px solid #2f425b}
+.carbon-insight{padding:0 14px;min-width:0}
+.carbon-insight:first-child{padding-left:0;border-right:1px solid #30445d}
+.carbon-insight span{display:block;color:#8da6c1;font-size:10px;margin-bottom:7px}
+.carbon-insight strong{color:#edf7ff;font-size:14px;font-weight:800}
+.carbon-insight small{font-size:10px;color:#9fb7ce;font-weight:650;margin-left:6px}
+@media(max-width:1150px){.carbon-layout{grid-template-columns:minmax(235px,.82fr) minmax(0,1.65fr)}.carbon-metrics .kpi{padding:18px}.carbon-metrics .kpi-number{font-size:29px}}
+@media(max-width:720px){.carbon-layout{grid-template-columns:1fr;gap:10px}.carbon-metrics{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:auto;gap:10px}.carbon-metrics .kpi{min-height:151px;padding:15px}.carbon-metrics .kpi-number{font-size:25px}.carbon-chart-card .chart.big{height:250px}}
+@media(max-width:420px){.carbon-metrics{grid-template-columns:1fr}.carbon-metrics .kpi{min-height:120px}.carbon-chart-card .card-inner{padding:15px 13px}.carbon-insight{padding:0 9px}.carbon-insight small{display:block;margin:4px 0 0}}
+@media(max-width:1350px){aside{width:214px}.workspace{margin-left:214px;width:calc(100% - 214px)}.main{padding:22px}.topbar{padding:12px 22px}.brand-name{font-size:22px}.grid{grid-template-columns:minmax(0,1.25fr) minmax(290px,1fr)}.impact{grid-template-columns:1fr}.kpi-number{font-size:23px}}
+@media(max-width:1020px){aside{width:70px;padding:17px 8px}.brand{justify-content:center;padding:0 0 19px}.brand-logo{width:48px;height:42px}.brand-name,.nav-title,.nav-button span:last-child,.side-bottom{display:none}.nav-button{justify-content:center;padding:12px 0}.nav-button.active:before{display:none}.workspace{margin-left:70px;width:calc(100% - 70px)}.grid{grid-template-columns:1fr 1fr}.kpis{grid-template-columns:repeat(2,1fr)}.stages{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:720px){aside{height:60px;width:100%;inset:auto 0 0;flex-direction:row;padding:6px;background:#0e1a2d;border-top:1px solid #2a3f58;border-right:0}.brand{display:none}.nav{flex-direction:row;width:100%;justify-content:space-around}.nav-button{flex:1}.nav-button .nav-icon{font-size:17px}.workspace{margin-left:0;width:100%;padding-bottom:60px}.topbar{padding:10px 14px;gap:8px;flex-wrap:wrap}.company{display:none}.main{padding:18px 12px}.heading h1{font-size:22px}.heading{margin-bottom:16px}.grid,.grid.equal{grid-template-columns:1fr;gap:10px}.kpis{gap:9px}.kpi{min-height:119px;padding:14px}.kpi-number{font-size:20px}.kpi-top{font-size:10.5px}.card-inner{padding:15px}.impact-stats{grid-template-columns:repeat(3,1fr)}.report-grid,.formula-grid{grid-template-columns:1fr}.select{font-size:11px;padding:8px}.footer{padding:12px}}
+@media print{body{background:white!important;color:#18293b!important}.app,aside,.topbar,.main,.footer{display:none!important}.workspace{margin:0;width:100%}.print-sheet{display:block!important;color:#243647;padding:26px 34px}.print-sheet h1{font-size:25px;color:#183e48}.print-sheet h2{font-size:15px;border-bottom:1px solid #cad5df;padding:9px 0;margin-top:24px}.print-sheet .print-meta{font-size:12px;color:#637990}.print-sheet .print-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}.print-sheet .print-box{padding:14px;border:1px solid #cdd9e2;border-radius:7px;font-size:13px}.print-sheet .print-box strong{display:block;margin-top:7px;font-size:23px}.print-sheet .print-foot{margin-top:30px;font-size:10px;color:#8293a5;line-height:1.6}.print-sheet .print-chart{height:210px;width:100%;position:relative}.print-sheet .print-chart .tip{display:none}.print-sheet{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside>
+ <div class="brand"><div class="brand-logo"><svg viewBox="0 0 64 48" width="52" height="39" role="img" aria-label="기부DR 로고"><path d="M32 21C26.4 16.9 24.2 14.3 24.2 11.9C24.2 9.8 25.8 8.3 27.8 8.3C29.5 8.3 31 9.3 32 10.8C33 9.3 34.5 8.3 36.2 8.3C38.2 8.3 39.8 9.8 39.8 11.9C39.8 14.3 37.6 16.9 32 21Z" fill="#e988a0"/><rect x="52.5" y="26" width="8.5" height="14" rx="1.6" fill="#4f8ee6"/><path d="M52.5 28.2L44 25.3Q40 24.2 36 25.7L26.3 29.3Q22.6 30.8 23.6 33.7Q24.7 36.3 28.2 35.2L33.2 33.6L38.4 37.2Q40.4 38.6 43.2 38.3L52.5 38.3Z" fill="#73adff"/><rect x="3" y="26" width="8.5" height="14" rx="1.6" fill="#22a888"/><path d="M11.5 28.2L20 25.3Q24 24.2 28 25.7L37.7 29.3Q41.4 30.8 40.4 33.7Q39.3 36.3 35.8 35.2L30.8 33.6L25.6 37.2Q23.6 38.6 20.8 38.3L11.5 38.3Z" fill="#35d6ac" stroke="#172f3f" stroke-width="1.4" paint-order="stroke"/><path d="M33.6 30.2L32.4 33.1M36.6 31.3L35.6 34.4" stroke="#1d5f58" stroke-width="1.1" stroke-linecap="round"/></svg></div><div class="brand-name">기부DR<small>기업용 탄소·기부 성과</small></div></div>
+ <div class="nav-title">MENU</div>
+ <nav class="nav" id="nav" aria-label="주요 메뉴">
+  <button class="nav-button active" type="button" data-tab="overview"><span class="nav-icon">▦</span><span>통합 대시보드</span></button>
+  <button class="nav-button" type="button" data-tab="dr"><span class="nav-icon">↯</span><span>DR 운영 실적</span></button>
+  <button class="nav-button" type="button" data-tab="carbon"><span class="nav-icon">◫</span><span>MEF 탄소 분석</span></button>
+  <button class="nav-button" type="button" data-tab="fund"><span class="nav-icon">♡</span><span>기부금 전달·집행</span></button>
+  <button class="nav-button" type="button" data-tab="appliance"><span class="nav-icon">▤</span><span>고효율 가전 교체 성과</span></button>
+  <button class="nav-button" type="button" data-tab="reports"><span class="nav-icon">▣</span><span>성과 리포트</span></button>
+ </nav>
+ <div class="side-bottom">© 2026 기부DR</div>
+</aside>
+<div class="workspace">
+ <header class="topbar"><div class="breadcrumb"><span>기부DR</span><span>/</span><strong id="crumb">통합 대시보드</strong></div><div class="top-actions"><span class="company">참여기업 A · 신뢰성DR 2.5MW</span><select id="period" class="select" aria-label="조회기간"><option value="all">2026년 1~12월 (11~12월 예상)</option><option value="confirmed">2026년 1~10월 (확정)</option><option value="2026-12">2026년 12월 (예상)</option><option value="2026-11">2026년 11월 (예상)</option><option value="2026-10">2026년 10월</option><option value="2026-09">2026년 9월</option><option value="2026-08">2026년 8월</option><option value="2026-07">2026년 7월</option><option value="2026-06">2026년 6월</option><option value="2026-05">2026년 5월</option><option value="2026-04">2026년 4월</option><option value="2026-03">2026년 3월</option><option value="2026-02">2026년 2월</option><option value="2026-01">2026년 1월</option></select><button class="btn" id="csvBtn" type="button">CSV 내보내기</button></div></header>
+ <main class="main">
+ <section id="page-overview" class="view active">
+  <div class="heading"><h1>통합 대시보드</h1><span class="label period-label"></span></div>
+  <div id="overview-kpis" class="kpis"></div>
+  <div class="grid">
+   <div class="card"><div class="card-inner"><div class="card-header"><h2>시간대별 DR 감축 실적 및 MEF</h2><span class="mini-chip green">MEF 분석</span></div><div class="chart" id="chart-hour"></div><div class="chart-legend"><span><i class="legend-dot"></i>DR 감축량 (kWh)</span><span><i class="legend-line"></i>MEF (kgCO₂/kWh)</span></div></div></div>
+   <div class="card"><div class="card-inner"><div class="card-header"><h2>DR 정산금 및 기부 현황</h2><span class="mini-chip">누적</span></div><div id="overview-flow"></div></div></div>
+  </div>
+  <div class="grid">
+   <div class="card"><div class="card-inner"><div class="card-header"><h2>고효율 냉장고 교체 성과</h2><span class="mini-chip green">서울특별시 · 실측</span></div><div id="overview-impact"></div></div></div>
+   <div class="card"><div class="card-inner"><div class="card-header"><h2>최근 DR 이행 내역</h2><button class="btn" data-go="dr" type="button">전체 내역</button></div><div class="tbl-scroll" id="recent-events"></div></div></div>
+  </div>
+ </section>
+ <section id="page-dr" class="view">
+  <div class="heading"><h1>DR 운영 실적</h1><span class="label period-label"></span></div>
+  <div id="dr-kpis" class="kpis"></div>
+  <div class="grid equal">
+   <div class="card"><div class="card-inner"><div class="card-header"><h2>월별 인정 전력감축량</h2><span class="mini-chip">kWh · 11~12월 예상</span></div><div class="chart" id="chart-dr-month"></div></div></div>
+   <div class="card"><div class="card-inner"><div class="card-header"><h2>월별 DR 정산금</h2><span class="mini-chip">실수령 · 원</span></div><div class="chart" id="chart-dr-fee"></div><div class="chart-legend"><span><i class="legend-dot" style="background:#73adff"></i>기본정산금</span><span><i class="legend-dot"></i>실적정산금</span><span><i class="legend-dot" style="opacity:.42;background:#9aafc9"></i>예상(시연)</span></div></div></div>
+  </div>
+  <div class="card"><div class="card-inner"><div class="card-header"><h2>DR 이행 상세</h2><button class="btn" data-csv="1" type="button">CSV 내보내기</button></div><div class="tbl-scroll" id="dr-table"></div></div></div>
+ </section>
+ <section id="page-carbon" class="view">
+  <div class="heading"><h1>MEF 탄소 분석</h1><span class="label period-label"></span></div>
+  <div class="carbon-layout">
+   <div id="carbon-kpis" class="carbon-metrics" aria-label="MEF 탄소 분석 주요 지표"></div>
+   <div class="card carbon-chart-card"><div class="card-inner">
+    <div class="card-header"><div><h2>시간대별 DR 감축량 및 MEF</h2><div class="subtitle">시간별 감축 전력량과 운영조건별 한계배출계수(MEF)</div></div><span class="mini-chip">시간별</span></div>
+    <div class="chart big" id="chart-carbon-hour"></div>
+    <div class="chart-legend"><span><i class="legend-dot"></i>감축량 (kWh)</span><span><i class="legend-line"></i>MEF (kgCO₂/kWh)</span></div>
+    <div class="carbon-insights" id="carbon-insights" aria-label="시간대별 주요 지표"></div>
+   </div></div>
+  </div>
+  <div class="card"><div class="card-inner"><div class="card-header"><h2>회피배출 산정 기준</h2></div><div class="formula-grid"><div class="formula"><label>DR 인정 감축량</label><strong>시간별 감축량 (kWh)</strong><span>감축 지시 이행 시간 · 회복부하 차감</span></div><div class="formula"><label>운영조건별 한계배출계수</label><strong>MEF (kgCO₂/kWh)</strong><span>계절 × 시간대 9개 구간 · 공공데이터 기반 추정</span></div><div class="formula"><label>회피배출 추정량</label><strong>Σ (순감축량 × MEF)</strong><span>발전단 기준 환산 · tCO₂</span></div></div><div class="note">회피배출 추정량은 기업 Scope 1·2·3 배출량에서 차감되는 공식 감축실적이 아니며, 별도의 환경성과 지표로 보고합니다. MEF는 2023년 공공데이터 분석 결과를 시연에 적용한 값입니다.</div></div></div>
+ </section>
+ <section id="page-fund" class="view">
+  <div class="heading"><h1>기부금 전달·집행</h1><span class="label period-label"></span></div>
+  <div id="fund-kpis" class="kpis"></div>
+  <div class="card" style="margin-bottom:14px"><div class="card-inner"><div class="card-header"><h2>기부금 수탁·집행 단계</h2><span class="mini-chip">서울특별시</span></div><div id="fund-stages" class="stages"></div><div id="fund-metrics" class="metric-row"></div></div></div>
+  <div class="grid equal">
+   <div class="card"><div class="card-inner"><div class="card-header"><h2>월별 지정기탁금</h2><span class="mini-chip">원 · 11~12월 예상</span></div><div class="chart" id="chart-fund-month"></div></div></div>
+   <div class="card"><div class="card-inner"><div class="card-header"><h2>기탁금 집행 현황</h2></div><div id="fund-detail"></div></div></div>
+  </div>
+ </section>
+ <section id="page-appliance" class="view">
+  <div class="heading"><h1>고효율 가전 교체 성과</h1><span class="label period-label"></span></div>
+  <div id="appliance-kpis" class="kpis"></div>
+  <div class="grid equal">
+   <div class="card"><div class="card-inner"><div class="card-header"><h2>교체 전후 월간 전력소비량</h2><span class="mini-chip">가구 평균 · 실측</span></div><div id="app-compare"></div></div></div>
+   <div class="card"><div class="card-inner"><div class="card-header"><h2>전력·탄소 절감 성과</h2></div><div id="app-effects"></div></div></div>
+  </div>
+  <div class="card"><div class="card-inner"><div class="card-header"><h2>냉장고 교체 지원 내역</h2><span class="mini-chip">익명 관리번호 · 서울시</span></div><div class="tbl-scroll" id="app-table"></div></div></div>
+ </section>
+ <section id="page-reports" class="view">
+  <div class="heading"><h1>성과 리포트</h1><span class="label period-label"></span></div>
+  <div class="report-grid"><div class="report"><div class="report-icon">↯</div><h3>DR 감축 리포트</h3><div class="report-tags">DR 이행·정산 실적<br>기본·실적정산금 구분<br>MEF 기반 회피배출 추정량</div><button class="btn" data-print="dr" type="button">리포트 인쇄</button></div><div class="report"><div class="report-icon">♡</div><h3>기부 성과 리포트</h3><div class="report-tags">지정기탁·집행 현황<br>냉장고 교체 가구<br>전력 절감·회피배출 추정량</div><button class="btn" data-print="fund" type="button">리포트 인쇄</button></div><div class="report"><div class="report-icon">▣</div><h3>통합 성과 리포트</h3><div class="report-tags">DR 감축·정산 성과<br>기부금 집행 실적<br>DR·냉장고 회피배출 구분 보고</div><button class="btn teal" data-print="total" type="button">리포트 인쇄</button></div></div>
+  <div class="card" style="margin-top:14px"><div class="card-inner"><div class="card-header"><h2>리포트 구성 항목</h2></div><div class="formula-grid"><div class="formula"><label>DR 실적</label><strong>인정 감축량 · 정산금</strong><span>이행 일시 · 기본정산금 · 실적정산금</span></div><div class="formula"><label>MEF 분석</label><strong>회피배출 추정량</strong><span>운영조건별 MEF 적용 · Scope 배출량과 별도</span></div><div class="formula"><label>사회공헌 성과</label><strong>기부금 · 냉장고 교체</strong><span>기탁·집행 · 실측 절감 · 연간 환산 예상</span></div></div></div></div>
+ </section>
+ </main>
+ <footer class="footer"><span>© 2026 기부DR · Enterprise Dashboard</span><span>데이터 구분: 시연용 (11~12월 예상)</span></footer>
+</div>
+</div>
+<div class="print-sheet" id="print-sheet"></div>
+<script>
+'use strict';
+// 시연용 데이터: 기부DR 사업모델(신뢰성DR 기본정산금 기반 지정기탁)에 맞춘 가상 실적입니다.
+// 1~10월은 확정 실적 형식의 시연 데이터, 11~12월은 예상(시연) 데이터로 구분합니다.
+const MONTHS=Array.from({length:12},(_,i)=>`2026-${String(i+1).padStart(2,'0')}`);
+const CONFIRMED_IDX=9;
+const isDemo=m=>MONTHS.indexOf(m)>CONFIRMED_IDX;
+// 내부 산정 파라미터 (화면 비노출)
+const CAPACITY_KW=2500,BASE_UNIT=2650,FEE=.20,DONATION_RATE=.10,LOSS=.0353,AEF=.4173,RECOVERY=.012;
+const SMP=[150,145,140,128,122,130,138,146,135,128,132,140];
+// 운영조건별 MEF (kgCO₂/kWh): 기획서 4-(3)·부록5, 2023년 공공데이터 기반 9개 구간 추정 결과
+const MEF_BIN={winter:{solar:.513,evening:.452,night:.452},summer:{solar:.567,evening:.513,night:.497},mid:{solar:.581,evening:.422,night:.461}};
+const season=m=>(m===12||m<=3)?'winter':(m>=6&&m<=8)?'summer':'mid';
+const block=h=>h>=10&&h<16?'solar':h>=16&&h<22?'evening':'night';
+const mefOf=(m,h)=>MEF_BIN[season(m)][block(h)];
+const dayMEF=m=>{const b=MEF_BIN[season(m)];return(b.solar*6+b.evening*6+b.night*12)/24};
+const ANNUAL_DAY_MEF=MONTHS.reduce((a,_,i)=>a+dayMEF(i+1),0)/12;
+const BASIC_NET=CAPACITY_KW*BASE_UNIT*(1-FEE);
+function random(n){let v=Math.sin(n*62.782+19.23)*45127.419;return v-Math.floor(v)}
+const sum=(rows,k)=>rows.reduce((a,x)=>a+(x[k]||0),0);
+const pad=n=>String(n).padStart(2,'0');
+// 신뢰성DR 감축 지시 이행 내역 [월-일, 시작시각, 이행시간]
+const EVENTS=[['01-08',9,2],['01-21',17,1],['02-04',18,1],['02-11',10,1],['03-12',18,1],['04-16',14,1],['05-21',15,1],['06-18',17,2],['06-29',14,1],['07-08',16,2],['07-22',17,2],['07-30',15,2],['08-05',17,2],['08-12',18,1],['08-19',16,3],['09-09',17,1],['10-14',18,1],['11-26',18,1],['12-10',9,2],['12-17',18,1]];
+const hourRows=[],eventRows=[];
+EVENTS.forEach(([md,start,dur],k)=>{const m=+md.slice(0,2),month='2026-'+md.slice(0,2),date='2026-'+md,hrs=[];
+ for(let j=0;j<dur;j++){const h=start+j,kwh=Math.round(CAPACITY_KW*(.98+random(k*7+j+3)*.2)/10)*10,mef=mefOf(m,h),kg=kwh*(1-RECOVERY)*mef/(1-LOSS),perf=Math.round(kwh*SMP[m-1]*(1-FEE));const r={month,date,hour:h,kwh,mef,kg,perf};hrs.push(r);hourRows.push(r)}
+ const kwh=sum(hrs,'kwh');eventRows.push({id:'DR-26'+pad(k+1),month,date,start,dur,kwh,kg:sum(hrs,'kg'),mef:hrs.reduce((a,x)=>a+x.kwh*x.mef,0)/kwh,perf:sum(hrs,'perf'),demo:isDemo(month)});
+});
+const monthly=MONTHS.map((month,i)=>{const ev=eventRows.filter(e=>e.month===month);return{month,label:(i+1)+'월',demo:isDemo(month),count:ev.length,hours:sum(ev,'dur'),kwh:sum(ev,'kwh'),kg:sum(ev,'kg'),basic:BASIC_NET,perf:sum(ev,'perf'),donation:Math.round(BASIC_NET*DONATION_RATE)}});
+// 냉장고 교체 지원 (분기별 확정 기탁금 기준 집행) · 교체 전후 계측값은 사용조건 보정 후 월간 환산값
+const addDays=(s,n)=>{const d=new Date(s+'T00:00:00Z');d.setUTCDate(d.getUTCDate()+n);return d.toISOString().slice(0,10)};
+const HOUSES=[
+ {id:'SE-26-001',region:'노원구',select:'2026-04-02',install:'2026-04-14',price:698000,pre:43.2,post:28.1},
+ {id:'SE-26-002',region:'강북구',select:'2026-04-20',install:'2026-05-07',price:702000,pre:46.8,post:29.4},
+ {id:'SE-26-003',region:'중랑구',select:'2026-07-01',install:'2026-07-09',price:695000,pre:39.5,post:26.2},
+ {id:'SE-26-004',region:'금천구',select:'2026-07-06',install:'2026-07-23',price:705000,pre:44.1,post:28.7},
+ {id:'SE-26-005',region:'관악구',select:'2026-10-01',install:'2026-10-15',price:699000,pre:41.7,post:27.5},
+ {id:'SE-26-006',region:'은평구',select:'2026-10-19',install:'2026-11-12',price:701000,pre:45.3,post:29.0}
+].map(h=>({...h,item:'냉장고 (1등급·300L급)',month:h.install.slice(0,7),save:Math.round((h.pre-h.post)*10)/10,measured:addDays(h.install,28),demo:isDemo(h.install.slice(0,7))}));
+const state={tab:'overview',period:'all'};
+const fmt=n=>Math.round(n).toLocaleString('ko-KR');
+const fx=(n,p=1)=>Number(n).toLocaleString('ko-KR',{minimumFractionDigits:p,maximumFractionDigits:p});
+const ton=kg=>fx(kg/1000,2),man=won=>fx(won/10000,1);
+const $=id=>document.getElementById(id);const put=(id,html)=>{if($(id))$(id).innerHTML=html};
+const endIdx=()=>state.period==='all'?11:state.period==='confirmed'?CONFIRMED_IDX:MONTHS.indexOf(state.period);
+const startIdx=()=>state.period==='all'||state.period==='confirmed'?0:MONTHS.indexOf(state.period);
+const inPeriod=m=>{const i=MONTHS.indexOf(m);return i>=startIdx()&&i<=endIdx()};
+const untilEnd=m=>MONTHS.indexOf(m)<=endIdx();
+const endDate=()=>{const i=endIdx();return `2026-${pad(i+1)}-${pad(new Date(Date.UTC(2026,i+1,0)).getUTCDate())}`};
+const periodHasDemo=()=>endIdx()>CONFIRMED_IDX;
+function periodText(long=false){const s=startIdx(),e=endIdx();let t=s===e?`2026.${pad(s+1)}`:`2026.${pad(s+1)}–${pad(e+1)}`;if(state.period==='confirmed')t+=' · 확정 실적';else if(periodHasDemo())t+=s===e?' · 예상(시연)':' · 11~12월 예상(시연) 포함';return long?t.replace('–','–2026.'):t}
+function drSummary(){const ev=eventRows.filter(e=>inPeriod(e.month)),ms=monthly.filter(x=>inPeriod(x.month)),kwh=sum(ev,'kwh');return{events:ev,count:ev.length,hours:sum(ev,'dur'),kwh,kg:sum(ev,'kg'),weighted:kwh?ev.reduce((a,e)=>a+e.kwh*e.mef,0)/kwh:0,basic:sum(ms,'basic'),perf:sum(ev,'perf'),donation:sum(ms,'donation')}}
+function fund(){const ms=monthly.filter(x=>untilEnd(x.month)),end=endDate(),donation=sum(ms,'donation'),selected=HOUSES.filter(h=>h.select<=end),installed=HOUSES.filter(h=>h.install<=end),spent=sum(installed,'price');return{basic:sum(ms,'basic'),donation,selected,installed,spent,remaining:Math.max(0,donation-spent),percent:donation?spent/donation*100:0}}
+function fridge(){const end=endDate(),installed=HOUSES.filter(h=>h.install<=end),measured=installed.filter(h=>h.measured<=end),n=measured.length;let cumKwh=0,cumKg=0;
+ measured.forEach(h=>{const daily=h.save/(365/12);for(let d=addDays(h.install,1);d<=end;d=addDays(d,1)){cumKwh+=daily;cumKg+=daily*dayMEF(+d.slice(5,7))/(1-LOSS)}});
+ const monthSave=sum(measured,'save'),annual=monthSave*12;
+ return{installed,measured,selected:HOUSES.filter(h=>h.select<=end),newOnes:installed.filter(h=>inPeriod(h.month)),pre:n?sum(measured,'pre')/n:0,post:n?sum(measured,'post')/n:0,avgSave:n?monthSave/n:0,cumKwh,cumKg,annual,annualKg:annual*ANNUAL_DAY_MEF/(1-LOSS)}}
+function card(label,value,unit,detail,color='teal',icon='◈'){return `<div class="kpi"><div class="kpi-top"><span>${label}</span><span class="kpi-icon ${color}">${icon}</span></div><div class="kpi-number">${value}<small>${unit}</small></div><div class="kpi-detail">${detail}</div></div>`}
+function dataTable(headers,rows){return '<table><thead><tr>'+headers.map(v=>`<th${v[1]?' class="num"':''}>${v[0]}</th>`).join('')+'</tr></thead><tbody>'+(rows.length?rows.join(''):`<tr><td colspan="${headers.length}" style="color:#8299b6">조회기간 내 내역이 없습니다</td></tr>`)+'</tbody></table>'}
+const demoTag=on=>on?'<span class="demo-tag">예상</span>':'';
+const evTime=(e,range=true)=>e.date.slice(5).replace('-','/')+' '+pad(e.start)+':00'+(range?'–'+pad(e.start+e.dur)+':00':'');
+function drRow(e,full=false){return full?`<tr><td>${e.id}</td><td>${evTime(e)}</td><td class="num">${fmt(e.kwh)}</td><td class="num">${fx(e.mef,3)}</td><td class="num green-num">${fmt(e.kg)}</td><td class="num">${fmt(e.perf)}</td><td>${e.demo?'<span class="status pending">미확정(시연)</span>':'<span class="status">이행 완료</span>'}</td></tr>`:`<tr><td>${evTime(e,false)}${demoTag(e.demo)}</td><td class="num">${fmt(e.kwh)}</td><td class="num green-num">${fmt(e.kg)}</td><td class="num">${man(e.perf)}만</td></tr>`}
+function hourData(rows){return Array.from({length:24},(_,h)=>{const entries=rows.filter(e=>e.hour===h),kwh=sum(entries,'kwh');return{hour:h,kwh,mef:kwh?entries.reduce((a,x)=>a+x.kwh*x.mef,0)/kwh:null,kg:sum(entries,'kg')}})}
+const periodHours=()=>hourRows.filter(r=>inPeriod(r.month));
+const SVG='http://www.w3.org/2000/svg';function sn(tag,props={},text=''){let e=document.createElementNS(SVG,tag);for(const [k,v] of Object.entries(props))e.setAttribute(k,String(v));if(text!==undefined&&text!==null)e.textContent=text;return e}
+function drawChart(id,records,mode='bars',opts={}){let box=$(id);if(!box)return;box.replaceChildren();let W=Math.max(480,box.clientWidth||620),H=Math.max(190,box.clientHeight||210);let left=52,top=17,right=mode==='hour'?30:10,bottom=31,pw=W-left-right,ph=H-top-bottom;let n=records.length,step=pw/n,vals=records.map(x=>(x.value??x.kwh??0)+(x.value2||0)),max=Math.max(1,...vals)*1.15;const svg=sn('svg',{viewBox:`0 0 ${W} ${H}`,role:'img','aria-label':opts.aria||'실적 그래프'}),defs=sn('defs');[['grad-'+id,opts.color||'#35d6ac'],['grad2-'+id,opts.color2||'#35d6ac']].forEach(([gid,c])=>{const g=sn('linearGradient',{id:gid,x1:'0%',y1:'0%',x2:'0%',y2:'100%'});g.append(sn('stop',{offset:'0%','stop-color':c,'stop-opacity':'.95'}),sn('stop',{offset:'100%','stop-color':c,'stop-opacity':'.34'}));defs.append(g)});svg.append(defs);
+ for(let t=0;t<4;t++){let yy=top+ph*t/3;svg.append(sn('line',{x1:left,y1:yy,x2:left+pw,y2:yy,stroke:'#304057','stroke-dasharray':'3 4'}));let v=max*(1-t/3),label=opts.money?(v>=1e6?fx(v/1e6,1)+'m':fmt(v/1000)+'k'):(v>=10000?fx(v/1000,0)+'k':fmt(v));svg.append(sn('text',{x:left-10,y:yy+4,fill:'#8298b5','font-size':10,'text-anchor':'end'},label));}
+ const tip=document.createElement('div');tip.className='tip';box.appendChild(tip);
+ records.forEach((r,i)=>{let val=vals[i],v1=r.value??r.kwh??0,v2=r.value2||0,x=left+step*(i+.5),bw=Math.min(34,step*.64),h1=v1/max*ph,h2=v2/max*ph,op=val?(r.demo?.42:1):.07;svg.append(sn('rect',{x:x-bw/2,y:top+ph-h1,width:bw,height:Math.max(.1,h1),rx:3,fill:`url(#grad-${id})`,opacity:op}));if(v2)svg.append(sn('rect',{x:x-bw/2,y:top+ph-h1-h2,width:bw,height:Math.max(.1,h2),rx:3,fill:`url(#grad2-${id})`,opacity:op}));svg.append(sn('text',{x,y:H-10,fill:'#8599b3','font-size':10,'text-anchor':'middle'},r.label??''));let hit=sn('rect',{x:x-step/2,y:top,width:step,height:ph,fill:'transparent',cursor:'crosshair'});hit.addEventListener('mousemove',ev=>{tip.style.display='block';const unit=opts.money?'원':' kWh';tip.innerHTML=(mode==='hour'?`${r.hour}시`:(r.label||''))+(r.demo?' · 예상(시연)':'')+'<br>'+(v2?`${opts.name1||''} ${fmt(v1)}${unit}<br>${opts.name2||''} ${fmt(v2)}${unit}`:fmt(val)+unit)+(r.mef!==null&&r.mef!==undefined?'<br>MEF '+fx(r.mef,3)+' kgCO₂/kWh':'');let rect=box.getBoundingClientRect();tip.style.left=Math.max(0,Math.min(ev.clientX-rect.left+10,rect.width-165))+'px';tip.style.top=Math.max(7,ev.clientY-rect.top-53)+'px'});hit.addEventListener('mouseleave',()=>tip.style.display='none');svg.append(hit)});
+ if(mode==='hour'){let arr=records.map((v,i)=>({v:v.mef,i})).filter(x=>x.v!=null);if(arr.length){let y=v=>Math.max(top+1,Math.min(top+ph-1,top+ph-(v-.35)/.30*ph));svg.append(sn('path',{d:'M'+arr.map(x=>`${left+(x.i+.5)*step},${y(x.v)}`).join(' L'),fill:'none',stroke:'#edb963','stroke-width':2.5,'stroke-linecap':'round','stroke-linejoin':'round'}));arr.forEach(x=>svg.append(sn('circle',{cx:left+(x.i+.5)*step,cy:y(x.v),r:3.3,fill:'#edb963',stroke:'#132138','stroke-width':1})));}}
+ box.insertBefore(svg,tip)}
+function compareRow(name,num,width,color=''){return `<div class="compare"><span>${name}</span><div class="bar-track"><div class="bar-fill ${color}" style="width:${Math.max(0,Math.min(100,width))}%"></div></div><span class="val">${num}</span></div>`}
+const kwhOrDash=v=>v?fx(v,1)+' kWh':'—';
+function impactHTML(r){return `<div class="impact"><div>${compareRow('교체 전',kwhOrDash(r.pre),r.pre?100:0)}${compareRow('교체 후',kwhOrDash(r.post),r.pre?r.post/r.pre*100:0,'good')}</div><div class="impact-stats"><div class="stat"><span>교체 완료</span><strong>${r.installed.length}</strong><small>가구</small></div><div class="stat"><span>설치 후 누적 절감</span><strong>${fmt(r.cumKwh)}</strong><small>kWh</small></div><div class="stat"><span>누적 회피배출</span><strong>${fmt(r.cumKg)}</strong><small>kgCO₂</small></div></div></div>`}
+const tabNames={overview:'통합 대시보드',dr:'DR 운영 실적',carbon:'MEF 탄소 분석',fund:'기부금 전달·집행',appliance:'고효율 가전 교체 성과',reports:'성과 리포트'};
+function overview(){const s=drSummary(),f=fund(),r=fridge();put('overview-kpis',card('DR 인정 감축량',fmt(s.kwh),'kWh',`이행 ${s.count}회 · ${s.hours}시간`,'teal','⚡')+card('DR 정산금 (실수령)',man(s.basic+s.perf),'만원',`기본 ${man(s.basic)}만 · 실적 ${man(s.perf)}만`,'blue','₩')+card('DR 회피배출 추정량',ton(s.kg),'tCO₂','시간대별 MEF 적용','yellow','◈')+card('누적 지정기탁금',man(f.donation),'만원','기본정산금 실수령액의 10%','violet','♡'));
+ drawChart('chart-hour',hourData(periodHours()).map(x=>({...x,label:x.hour%2===0?x.hour+'시':''})),'hour');
+ put('overview-flow',`<div class="flow"><div class="flow-row"><div class="flow-symbol">⚡</div><div><div class="flow-label">DR 기본정산금 실수령</div><div class="flow-num">${man(f.basic)} <small>만원</small></div></div></div><div class="flow-step"></div><div class="flow-row"><div class="flow-symbol blue">♡</div><div><div class="flow-label">한국에너지재단 지정기탁금</div><div class="flow-num">${man(f.donation)} <small>만원</small></div></div></div><div class="flow-step"></div><div class="flow-row"><div class="flow-symbol yellow">▣</div><div><div class="flow-label">고효율 냉장고 교체 집행액</div><div class="flow-num">${man(f.spent)} <small>만원</small></div></div></div><div class="progress"><div style="width:${fx(f.percent,1)}%"></div></div><div class="between"><span>기탁금 집행률</span><strong>${fx(f.percent,1)}%</strong></div></div>`);
+ put('overview-impact',impactHTML(r));const list=s.events.slice().sort((a,b)=>b.date.localeCompare(a.date)||b.start-a.start).slice(0,5);put('recent-events',dataTable([['일시'],['감축량 (kWh)',true],['회피배출 (kgCO₂)',true],['실적정산금',true]],list.map(x=>drRow(x))))}
+function dr(){let s=drSummary();put('dr-kpis',card('DR 이행 횟수',fmt(s.count),'회',`감축 지시 이행 ${s.hours}시간`,'teal','↯')+card('인정 전력감축량',fmt(s.kwh),'kWh','조회기간 합계','blue','⚡')+card('기본정산금 (실수령)',man(s.basic),'만원',`등록용량 2.5MW · 월 ${man(BASIC_NET)}만원`,'yellow','₩')+card('실적정산금 (실수령)',man(s.perf),'만원','감축 이행 실적 기준','violet','＋'));
+ drawChart('chart-dr-month',monthly.map(x=>({label:x.label,value:x.kwh,demo:x.demo})),'bars');
+ drawChart('chart-dr-fee',monthly.map(x=>({label:x.label,value:x.basic,value2:x.perf,demo:x.demo})),'bars',{money:true,color:'#73adff',color2:'#35d6ac',name1:'기본',name2:'실적'});
+ put('dr-table',dataTable([['이행 ID'],['일시'],['인정 감축량 (kWh)',true],['MEF',true],['회피배출 (kgCO₂)',true],['실적정산금 (원)',true],['상태']],s.events.slice().sort((a,b)=>b.date.localeCompare(a.date)||b.start-a.start).map(x=>drRow(x,true))))}
+function carbon(){
+ let s=drSummary(),hours=hourData(periodHours()),active=hours.filter(x=>x.kwh>0),diff=s.weighted?(s.weighted/AEF-1)*100:0;
+ put('carbon-kpis',card('DR 회피배출 추정량',ton(s.kg),'tCO₂','순감축량 × 시간대별 MEF 합계','teal','◈')+card('DR 감축량 가중 MEF',s.weighted?fx(s.weighted,3):'—','kgCO₂/kWh',s.weighted?`평균배출계수(AEF 0.417) 대비 ${diff>=0?'+':''}${fx(diff,0)}%`:'조회기간 이행 내역 없음','blue','≈'));
+ drawChart('chart-carbon-hour',hours.map(x=>({...x,label:x.hour%2===0?x.hour+'시':''})),'hour',{aria:'시간대별 DR 전력 감축량과 MEF 추이'});
+ let peakDR=active.reduce((best,x)=>!best||x.kwh>best.kwh?x:best,null),peakMEF=active.reduce((best,x)=>!best||x.mef>best.mef?x:best,null);
+ put('carbon-insights',`<div class="carbon-insight"><span>최대 DR 감축 시간대</span><strong>${peakDR?peakDR.hour+'시':'—'}</strong><small>${peakDR?fmt(peakDR.kwh)+' kWh':'기록 없음'}</small></div><div class="carbon-insight"><span>가장 높은 MEF 시간대</span><strong>${peakMEF?peakMEF.hour+'시':'—'}</strong><small>${peakMEF?fx(peakMEF.mef,3)+' kgCO₂/kWh':'기록 없음'}</small></div>`);
+}
+function fundRender(){let f=fund();put('fund-kpis',card('누적 지정기탁금',man(f.donation),'만원','기본정산금 실수령액의 10% · 기업 선택','teal','♡')+card('집행 금액',man(f.spent),'만원','냉장고 구매·설치·폐냉장고 수거','blue','▣')+card('잔여 금액',man(f.remaining),'만원','한국에너지재단 보관 · 다음 분기 집행','yellow','◷')+card('집행률',fx(f.percent,1),'%','누적 기탁금 대비','violet','◴'));
+ let stage=[['01','DR 기본정산금',man(f.basic)+'만원','기업 실수령액'],['02','재단 지정기탁',man(f.donation)+'만원','한국에너지재단 수탁'],['03','지원 가구 선정',f.selected.length+'가구','서울시·자치구 추천'],['04','고효율 냉장고 설치',f.installed.length+'대','설치·폐냉장고 수거']];put('fund-stages',stage.map(([n,t,v,d])=>`<div class="stage"><small>STEP ${n}</small><h3>${t}</h3><strong>${v}</strong><p>${d}</p></div>`).join(''));
+ put('fund-metrics',`<span>기탁 비율 <strong>10%</strong></span><span>기탁 재원 <strong>기본정산금 실수령액</strong></span><span>집행 기준 <strong>분기별 확정 기탁금</strong></span>`);
+ drawChart('chart-fund-month',monthly.map(x=>({label:x.label,value:x.donation,demo:x.demo})),'bars',{color:'#73adff',money:true});
+ put('fund-detail',`<div class="between"><span>누적 지정기탁금</span><strong>${man(f.donation)}만원</strong></div><div class="progress" style="margin-top:22px"><div style="width:${fx(f.percent,1)}%"></div></div><div class="between"><span>집행액 ${man(f.spent)}만원</span><strong>${fx(f.percent,1)}%</strong></div><div class="metric-row"><span>잔여금 <strong>${man(f.remaining)}만원</strong></span><span>지원 가구 <strong>${f.installed.length}가구</strong></span><span>지원 품목 <strong>냉장고</strong></span></div>`)}
+function appliance(){const r=fridge(),rate=r.pre?(1-r.post/r.pre)*100:0;
+ put('appliance-kpis',card('교체 완료 가구',r.installed.length,'가구',`서울시 저소득 노인·장애인 · 조회기간 신규 ${r.newOnes.length}가구`,'teal','▣')+card('월평균 전력 절감',r.avgSave?fx(r.avgSave,1):'—','kWh/가구',r.avgSave?`실측 기준 · 절감률 ${fx(rate,1)}%`:'계측 완료 가구 없음','blue','⚡')+card('설치 후 누적 절감',fmt(r.cumKwh),'kWh',`회피배출 추정 ${fmt(r.cumKg)} kgCO₂`,'yellow','◈')+card('연간 환산 예상 절감',fmt(r.annual),'kWh/년',`회피배출 ${fmt(r.annualKg)} kgCO₂/년 · 예상`,'violet','◴'));
+ put('app-compare',compareRow('교체 전',kwhOrDash(r.pre),r.pre?100:0)+compareRow('교체 후',kwhOrDash(r.post),r.pre?r.post/r.pre*100:0,'good')+`<div class="metric-row"><span>월평균 절감량 <strong>${r.avgSave?fx(r.avgSave,1)+' kWh':'—'}</strong></span><span>소비전력 감소율 <strong>${fx(rate,1)}%</strong></span><span>계측 완료 <strong>${r.measured.length}가구</strong></span></div>`);
+ put('app-effects',`<div class="small-kpis"><div class="small-kpi"><label>설치 후 누적 절감</label><strong>${fmt(r.cumKwh)}</strong><small>kWh</small></div><div class="small-kpi"><label>누적 회피배출</label><strong>${fmt(r.cumKg)}</strong><small>kgCO₂</small></div><div class="small-kpi"><label>연간 환산 예상</label><strong>${fmt(r.annual)}</strong><small>kWh/년</small></div></div><div class="equation" style="margin-top:20px"><b>실측</b> · 교체 전후 계측값(사용조건 보정) 기준 월 절감량<br><b>누적</b> · 실측 월 절감량 × 설치 후 경과기간 (추정)<br><b>연간 환산</b> · 실측 월 절감량 × 12개월 (예상)</div>`);
+ const end=endDate(),rows=r.selected.slice().reverse().map(x=>{const st=x.install>end?'<span class="status pending">설치 준비</span>':x.measured>end?'<span class="status pending">사후 계측 중</span>':'<span class="status">계측 완료</span>';return `<tr><td>${x.id}</td><td>${x.item}</td><td>서울 ${x.region}</td><td>${x.install<=end?x.install:'—'}${demoTag(x.demo&&x.install<=end)}</td><td class="num green-num">${x.measured<=end?fx(x.save,1):'—'}</td><td>${st}</td></tr>`});
+ put('app-table',dataTable([['관리번호'],['교체 품목'],['지원 지역'],['설치일'],['월 절감량 (kWh, 실측)',true],['상태']],rows))}
+function refresh(){document.querySelectorAll('.period-label').forEach(x=>x.textContent=periodText());overview();dr();carbon();fundRender();appliance()}
+function changeTab(id){state.tab=id;document.querySelectorAll('.nav-button').forEach(x=>x.classList.toggle('active',x.dataset.tab===id));document.querySelectorAll('.view').forEach(x=>x.classList.toggle('active',x.id==='page-'+id));put('crumb',tabNames[id]);window.scrollTo({top:0,behavior:'instant'});setTimeout(refresh,0)}
+function csvExport(){const ms=monthly.filter(x=>inPeriod(x.month)),ev=drSummary().events,q=v=>'"'+String(v).replace(/"/g,'""')+'"';
+ const rows=[['[월별 실적 요약]'],['월','데이터 구분','DR 이행 횟수','이행 시간_h','인정 감축량_kWh','DR 회피배출 추정_kgCO2','기본정산금_실수령_원','실적정산금_실수령_원','지정기탁금_원','냉장고 교체_가구'],
+  ...ms.map(x=>[x.month,x.demo?'예상(시연)':'확정',x.count,x.hours,x.kwh,fx(x.kg,1).replace(/,/g,''),Math.round(x.basic),x.perf,x.donation,HOUSES.filter(h=>h.month===x.month).length]),
+  ['합계','',sum(ms,'count'),sum(ms,'hours'),sum(ms,'kwh'),fx(sum(ms,'kg'),1).replace(/,/g,''),Math.round(sum(ms,'basic')),sum(ms,'perf'),sum(ms,'donation'),HOUSES.filter(h=>inPeriod(h.month)).length],
+  [],['[DR 이행 상세]'],['이행 ID','일자','시작','종료','데이터 구분','인정 감축량_kWh','MEF_kgCO2_kWh','회피배출 추정_kgCO2','실적정산금_실수령_원'],
+  ...ev.map(e=>[e.id,e.date,pad(e.start)+':00',pad(e.start+e.dur)+':00',e.demo?'예상(시연)':'확정',e.kwh,fx(e.mef,3),fx(e.kg,1).replace(/,/g,''),e.perf]),
+  [],['※ 회피배출 추정량은 시간대별 한계배출계수(MEF) 기반 추정치로 Scope 1·2·3 배출량과 별도입니다. 시연용 데이터.']];
+ let csv='﻿'+rows.map(row=>row.map(q).join(',')).join('\r\n');let blob=new Blob([csv],{type:'text/csv;charset=utf-8;'}),url=URL.createObjectURL(blob),a=document.createElement('a');const s=startIdx(),e=endIdx();a.href=url;a.download=`기부DR_실적_2026_${s===e?pad(s+1):pad(s+1)+'-'+pad(e+1)}.csv`;document.body.append(a);a.click();setTimeout(()=>{URL.revokeObjectURL(url);a.remove()},300)}
+function printReport(kind){let s=drSummary(),f=fund(),r=fridge();let title={dr:'DR 감축 리포트',fund:'기부 성과 리포트',total:'통합 성과 리포트'}[kind];let box=(lab,val)=>`<div class="print-box">${lab}<strong>${val}</strong></div>`;let html=`<h1>기부DR | ${title}</h1><div class="print-meta">참여기업 A (신뢰성DR · 등록용량 2.5MW)　·　조회기간 ${periodText(true)}</div>`;
+ if(kind!=='fund')html+=`<h2>DR 감축·정산 실적</h2><div class="print-grid">${box('DR 이행 횟수',s.count+'회 · '+s.hours+'시간')}${box('DR 인정 감축량',fmt(s.kwh)+' kWh')}${box('기본정산금 (실수령)',fmt(s.basic)+'원')}${box('실적정산금 (실수령)',fmt(s.perf)+'원')}</div><h2>DR 회피배출 추정량</h2><div class="print-grid">${box('DR 회피배출 추정량',ton(s.kg)+' tCO₂')}${box('DR 감축량 가중 MEF',(s.weighted?fx(s.weighted,3):'—')+' kgCO₂/kWh')}</div><div class="print-meta" style="margin-top:12px">월별 인정 전력감축량 (kWh)</div><div class="print-chart" id="print-chart-dr"></div>`;
+ if(kind!=='dr')html+=`<h2>지정기탁·집행 실적</h2><div class="print-grid">${box('누적 지정기탁금',fmt(f.donation)+'원')}${box('집행 금액 · 집행률',fmt(f.spent)+'원 · '+fx(f.percent,1)+'%')}${box('잔여 금액',fmt(f.remaining)+'원')}${box('냉장고 교체 완료',r.installed.length+'가구 (서울시)')}</div><h2>냉장고 교체 전력·탄소 절감</h2><div class="print-grid">${box('월평균 절감량 (실측)',(r.avgSave?fx(r.avgSave,1):'—')+' kWh/가구 · 절감률 '+fx(r.pre?(1-r.post/r.pre)*100:0,1)+'%')}${box('설치 후 누적 절감 · 회피배출',fmt(r.cumKwh)+' kWh · '+fmt(r.cumKg)+' kgCO₂')}${box('연간 환산 예상 절감',fmt(r.annual)+' kWh/년')}${box('연간 환산 예상 회피배출',fmt(r.annualKg)+' kgCO₂/년')}</div><div class="print-meta" style="margin-top:12px">월별 지정기탁금 (원)</div><div class="print-chart" id="print-chart-fund"></div>`;
+ html+=`<div class="print-foot">회피배출 추정량은 시간대별 한계배출계수(MEF)로 추정한 값으로 Scope 1·2·3 배출량과 별도로 보고하며, DR 감축과 냉장고 교체 성과는 구분 산정합니다.${periodHasDemo()?' 11~12월 수치는 예상(시연)입니다.':''}<br>기부DR · Enterprise Reporting　|　시연용 데이터</div>`;put('print-sheet',html);
+ drawChart('print-chart-dr',monthly.map(x=>({label:x.label,value:x.kwh,demo:x.demo})),'bars');drawChart('print-chart-fund',monthly.map(x=>({label:x.label,value:x.donation,demo:x.demo})),'bars',{color:'#73adff',money:true});
+ window.print()}
+document.querySelectorAll('.nav-button').forEach(btn=>btn.addEventListener('click',()=>changeTab(btn.dataset.tab)));
+document.querySelectorAll('[data-go]').forEach(btn=>btn.addEventListener('click',()=>changeTab(btn.dataset.go)));
+document.querySelectorAll('[data-csv]').forEach(btn=>btn.addEventListener('click',csvExport));
+document.querySelectorAll('[data-print]').forEach(btn=>btn.addEventListener('click',()=>printReport(btn.dataset.print)));
+$('csvBtn').addEventListener('click',csvExport);
+$('period').addEventListener('change',e=>{state.period=e.target.value;refresh()});
+let resizeHandle;window.addEventListener('resize',()=>{clearTimeout(resizeHandle);resizeHandle=setTimeout(refresh,140)});
+refresh();
+</script>
+</body></html>
